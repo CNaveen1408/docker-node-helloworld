@@ -5,20 +5,20 @@ phases:
   commands:
    - echo Logging in to ECR..
    - $(aws ecr get-login --no-include-email)
-   - aws ecr get-login-password --region us-east-2 | docker login --username $USERNAME --password-stdin $PASSWORD
-   - echo Image name - $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:$TAG
+   - aws ecr get-login-password --region us-east-1 | docker login --username $USERNAME --password-stdin $PASSWORD
+   - echo Image name - $REPOSITORY_URI:$TAG
  build:
   commands:
     - echo Build started on date
     - echo Building the Docker image...          
-    - docker build -t $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:latest .
-    - docker tag $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:latest $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:$IMAGE_TAG
+    - docker build -t $REPOSITORY_URI:latest .
+    - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
  post_build:
   commands:
     - echo pushing the image to ECR
-    - echo "docker push $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:$TAG"
-    - docker push $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:$TAG
-    - echo "Docker Image Push to ECR Completed -  $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:$IMAGE_TAG"    
+    - echo "docker push $REPOSITORY_URI:$TAG"
+    - docker push $REPOSITORY_URI:$TAG
+    - echo "Docker Image Push to ECR Completed -  $REPOSITORY_URI:$IMAGE_TAG"    
 
 # #artifacts:
 #  #files: build.json
