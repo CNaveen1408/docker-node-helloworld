@@ -4,7 +4,8 @@ phases:
  pre_build:
   commands:
    - echo Logging in to ECR..
-   - $(aws ecr get-login --region us-east-2 --no-include-email)
+   - aws --version
+   - $(aws ecr get-login --no-include-email)
    - aws ecr get-login-password --region us-east-2 | docker login --username $USERNAME --password-stdin $PASSWORD
    - echo Image name - $REPOSITORY_URI:$TAG
  build:
