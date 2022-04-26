@@ -12,13 +12,13 @@ phases:
   commands:
     - echo Build started on date
     - echo Building the Docker image...          
-    - docker build -t $REPOSITORY_URI:latest .
-    - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+    - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
+    - docker tag $REPOSITORY_URI:$IMAGE_TAG
  post_build:
   commands:
     - echo pushing the image to ECR
-    - echo "docker push $REPOSITORY_URI:$TAG"
-    - docker push $REPOSITORY_URI:$TAG
+    - echo "docker push $REPOSITORY_URI:$IMAGE_TAG"
+    - docker push $REPOSITORY_URI:$IMAGE_TAG
     - echo "Docker Image Push to ECR Completed -  $REPOSITORY_URI:$IMAGE_TAG"    
 
 # #artifacts:
