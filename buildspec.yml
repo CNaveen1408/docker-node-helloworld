@@ -3,6 +3,7 @@ version: 0.2
 phases:
  pre_build:
   commands:
+   - TAG="$REPOSITORY_BRANCH.$(date +%Y-%m-%d.%H.%M.%S)_$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
    - echo Logging in to ECR..
    - aws --version
    - $(aws ecr get-login --no-include-email)
@@ -12,14 +13,14 @@ phases:
   commands:
     - echo Build started on date
     - echo Building the Docker image...          
-    - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
-    - docker tag $REPOSITORY_URI:$IMAGE_TAG
+    - docker build -t $REPOSITORY_URI:$TAG .
+    - docker tag $REPOSITORY_URI:$TAG
  post_build:
   commands:
     - echo pushing the image to ECR
-    - echo "docker push $REPOSITORY_URI:$IMAGE_TAG"
-    - docker push $REPOSITORY_URI:$IMAGE_TAG
-    - echo "Docker Image Push to ECR Completed -  $REPOSITORY_URI:$IMAGE_TAG"    
+    - echo "docker push $REPOSITORY_URI:$TAG"
+    - docker push $REPOSITORY_URI:$TAG
+    - echo "Docker Image Push to ECR Completed -  $REPOSITORY_URI:$TAG"    
 
 # #artifacts:
 #  #files: build.json
