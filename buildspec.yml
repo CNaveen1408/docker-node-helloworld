@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+ pre_build:
+  commands:
+   - echo Logging in to ECR..
+   - $(aws ecr get-login --no-include-email)
+   - aws ecr get-login-password --region us-east-2 | docker login --username $USERNAME --password-stdin $PASSWORD
+   - echo Image name - $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:$TAG
+ build:
+  commands:
+    - echo Build started on date
+    - echo Building the Docker image...          
+    - docker build -t $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:latest .
+    - docker tag $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:latest $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:$IMAGE_TAG
+ post_build:
+  commands:
+    - echo pushing the image to ECR
+    - echo "docker push $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:$TAG"
+    - docker push $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:$TAG
+    - echo "Docker Image Push to ECR Completed -  $159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:$IMAGE_TAG"    
+
+# #artifacts:
+#  #files: build.json
