@@ -21,8 +21,8 @@ phases:
     - docker push $REPOSITORY_URI:latest
     - echo "Docker Image Push to ECR Completed -  $REPOSITORY_URI:$TAG"  
    
- artifacts:
-   files:
-     - '**/*'
+artifacts:
+  files:
+    - '**/*'
 # #artifacts:
 #  #files: build.json
