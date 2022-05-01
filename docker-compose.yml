@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  cicd-demo:
+    image: 159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:latest
+    ports:
+      - '8080:8080'
