@@ -1,6 +1,7 @@
 version: 0.0
 os: linux
 files:
-- source: /
+- source: 159195950120.dkr.ecr.us-east-2.amazonaws.com/cicd-demo:latest
   destination: ip-172-31-30-161.us-east-2.compute.internal/usr/share/nginx/html
+    
     
