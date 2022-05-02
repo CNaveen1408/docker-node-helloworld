@@ -1,5 +1,6 @@
 version: 0.0
 os: linux
 files:
-  - source: /
-    destination: /usr/share/nginx/html
+- source: /
+  destination: ip-172-31-30-161.us-east-2.compute.internal/usr/share/nginx/html
+    
